@@ -1,12 +1,16 @@
+using System.Net;
 using System.Text;
+using System.Text.Json;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NadinSoft.Api.Framework;
+using NadinSoft.Application.Contract.Exceptions;
 using NadinSoft.Infrastructure.Config;
 using NadinSoft.Infrastructure.Persistance.SQl;
 
@@ -100,6 +104,51 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+
+        // تنظیم پیش‌فرض
+        var errorCode = "ERR_500";
+        var errorMessage = "یک خطای ناشناس رخ داده ، با پشتیبانی تماس بگیرید!!!";
+        var statusCode = HttpStatusCode.InternalServerError;
+
+        // مدیریت خطاهای خاص
+        if (exception is NotFoundException)
+        {
+            errorCode = "ERR_404";
+            errorMessage = exception.Message;
+            statusCode = HttpStatusCode.NotFound;
+        }
+        else if (exception is UserAccessException)
+        {
+            errorCode = "ERR_403";
+            errorMessage = exception.Message;
+            statusCode = HttpStatusCode.Forbidden;
+        }
+        else if (exception is ValidationException validationException)
+        {
+            errorCode = "ERR_400";
+            errorMessage = string.Join(", ", validationException.Errors);
+            statusCode = HttpStatusCode.BadRequest;
+        }
+        
+        // تنظیم کد وضعیت HTTP
+        context.Response.StatusCode = (int)statusCode;
+        context.Response.ContentType = "application/json";
+
+        // ارسال پاسخ به کلاینت
+        await context.Response.WriteAsync(JsonSerializer.Serialize(new
+        {
+            ErrorCode = errorCode,
+            ErrorMessage = errorMessage
+        }));
+    });
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

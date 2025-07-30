@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NadinSoft.Api.Framework;
 using NadinSoft.Application.Contract.Commands.User;
 using NadinSoft.Application.Contract.Framework;
 
 namespace NadinSoft.Api.Controllers.Users;
 
+[Authorize]
 public class UserCommandController : BaseCommandController
 {
     public UserCommandController(ICommandBus bus) : base(bus)
@@ -24,7 +26,7 @@ public class UserCommandController : BaseCommandController
         return Ok(await Bus.Dispatch(command));
     }
 
-    [HttpDelete("DeleteProduct")]
+    [HttpDelete("DeleteUser")]
     public async Task<ActionResult<CommandResult>> DeleteUser([FromQuery] DeleteUserCommand command)
     {
         return Ok(await Bus.Dispatch(command));

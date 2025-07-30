@@ -1,5 +1,6 @@
 ﻿using NadinSoft.Application.Contract.Commands.Product;
 using NadinSoft.Application.Contract.Contracts;
+using NadinSoft.Application.Contract.Exceptions;
 using NadinSoft.Application.Contract.Framework;
 using NadinSoft.Application.Mapper;
 using NadinSoft.Domain;
@@ -29,9 +30,8 @@ public class ProductCommandHandler : ICommandHandler<AddProductCommand>,ICommand
     public async Task<CommandResult> Handle(UpdateProductCommand command)
     {
         var product = await _unitOfWork.ProductRepository.GetById(command.Id);
-        //ToDo Custom Exception
         if (product.UserId != _userInfoService.GetUserIdByToken())
-            throw new Exception("کاربر  ثبت کننده تنها دسترسی ویرایش دارد");
+            throw new UserAccessException("دسترسی ویرایش محدود است. فقط ثبت ‌کننده اصلی می‌تواند این محصول را ویرایش کند.");
         product.Name = command.Name;
         product.IsAvailable = command.IsAvailable;
         product.ProducedDate = command.ProducedDate;
@@ -42,9 +42,8 @@ public class ProductCommandHandler : ICommandHandler<AddProductCommand>,ICommand
     public async Task<CommandResult> Handle(DeleteProductCommand command)
     {
         var product = await _unitOfWork.ProductRepository.GetById(command.Id);
-        //ToDo Custom Exception
         if (product.UserId != _userInfoService.GetUserIdByToken())
-            throw new Exception("کاربر  ثبت کننده تنها دسترسی ویرایش دارد");
+            throw new UserAccessException("دسترسی حذف محدود است. فقط ثبت ‌کننده اصلی می‌تواند این محصول را حذف کند.");
         await _unitOfWork.ProductRepository.Delete(command.Id);
         await _unitOfWork.Save();
         return new CommandResult();

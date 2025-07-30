@@ -21,7 +21,7 @@ public class ProductCommandController : BaseCommandController
     
       
     [HttpPut("UpdateProduct")]
-    public async Task<ActionResult<CommandResult>> UpdateUser([FromBody]UpdateUserCommand command)
+    public async Task<ActionResult<CommandResult>> UpdateUser([FromBody]UpdateProductCommand command)
     {
         return Ok(await Bus.Dispatch(command));
     }

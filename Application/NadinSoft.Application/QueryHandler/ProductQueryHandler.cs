@@ -1,9 +1,11 @@
-﻿using NadinSoft.Application.Contract.Framework;
+﻿using System.ComponentModel.DataAnnotations;
+using NadinSoft.Application.Contract.Framework;
 using NadinSoft.Application.Contract.Queries.Product;
 using NadinSoft.Application.Contract.QueryResults.Product;
 using NadinSoft.Application.Mapper;
 using NadinSoft.Domain;
 using NadinSoft.Domain.Models.Products;
+using ValidationException = NadinSoft.Application.Contract.Exceptions.ValidationException;
 
 namespace NadinSoft.Application.QueryHandler;
 
@@ -29,10 +31,8 @@ public class ProductQueryHandler : IQueryHandler<GetProductByIdQuery,GetProductB
 
     public async Task<List<AllProductsByFilterQueryResult>> Handle(AllProductByFilterQuery query)
     {
-        if (!string.IsNullOrEmpty(query.ManufactureEmail) && !string.IsNullOrEmpty(query.ManufacturePhone))
-        {
-            throw new Exception("یک فیلتر فقط انتخاب کنید");
-        }
+        if (!string.IsNullOrEmpty(query.ManufactureEmail) && !string.IsNullOrEmpty(query.ManufacturePhone)) throw new ValidationException("لطفا تنها یک فیلتر انتخاب کنید");
+        
         var data = new List<Product>();
         if (!string.IsNullOrEmpty(query.ManufactureEmail))
         {

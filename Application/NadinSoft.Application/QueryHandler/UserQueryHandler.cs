@@ -1,4 +1,5 @@
 ﻿using NadinSoft.Application.Contract.Contracts;
+using NadinSoft.Application.Contract.Exceptions;
 using NadinSoft.Application.Contract.Framework;
 using NadinSoft.Application.Contract.Queries.Login;
 using NadinSoft.Application.Contract.Queries.User;
@@ -35,9 +36,7 @@ public class UserQueryHandler : IQueryHandler<GetUserByIdQuery,GetUserByIdQueryR
     public async Task<LoginDto> Handle(LoginRequestDto query)
     {
         var user = await _unitOfWork.UserRepository.CheckUserByUsernameAndPassword(query.Username,query.Password);
-        //ToDo AddCustomeException
-        //if (user == null) throw new NotFoundException("کاربر یافت نشد");
-        if (user == null) throw new Exception("کاربر یافت نشد");
+        if (user == null) throw new NotFoundException("کاربر یافت نشد");
 
         var permissions = new List<long>();
         var token = _tokenService.Generate(user.Id);
