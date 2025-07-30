@@ -7,10 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Mapper\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\NadinSoft.Domain\NadinSoft.Domain.csproj" />
       <ProjectReference Include="..\NadinSoft.Application.Contract\NadinSoft.Application.Contract.csproj" />
     </ItemGroup>
 

@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{79A1176F-FD9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadinSoft.Domain", "Domain\NadinSoft.Domain\NadinSoft.Domain.csproj", "{6FFC311D-C207-44EA-9639-E0B0D5A3779B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaidnSoft.Application", "Application\NaidnSoft.Application\NaidnSoft.Application.csproj", "{E2C35677-B182-4229-831C-24CEC57F81DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadinSoft.Application", "Application\NadinSoft.Application\NadinSoft.Application.csproj", "{E2C35677-B182-4229-831C-24CEC57F81DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadinSoft.Infrastructure.Config", "Infrastructure\NadinSoft.Infrastructure.Config\NadinSoft.Infrastructure.Config.csproj", "{C6190FD9-455E-46CB-AB6B-824C8AFE1207}"
 EndProject

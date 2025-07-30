@@ -12,7 +12,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Application\NadinSoft.Application.Contract\NadinSoft.Application.Contract.csproj" />
-      <ProjectReference Include="..\..\Application\NaidnSoft.Application\NaidnSoft.Application.csproj" />
+      <ProjectReference Include="..\..\Application\NadinSoft.Application\NadinSoft.Application.csproj" />
+      <ProjectReference Include="..\NadinSoft.Infrastructure.Persistance.SQl\NadinSoft.Infrastructure.Persistance.SQl.csproj" />
     </ItemGroup>
 
 </Project>

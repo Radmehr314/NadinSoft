@@ -17,3 +17,6 @@ public class AutofacCommandBus : ICommandBus
         return await handler.Handle(command);
     }
 }
+
+
+

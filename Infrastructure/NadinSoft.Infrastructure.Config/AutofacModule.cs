@@ -1,14 +1,23 @@
 ﻿using Autofac;
 using CNadinSoft.Infrastructure.Config;
 using NadinSoft.Application.Contract.Framework;
-using NaidnSoft.Application.CommandHandler;
-using NaidnSoft.Application.QueryHandler;
+using NadinSoft.Domain;
+using NadinSoft.Infrastructure.Persistance.SQl;
+using NadinSoft.Infrastructure.Persistance.SQl.Repositories;
+using NadinSoft.Application.CommandHandler;
+using NadinSoft.Application.QueryHandler;
 
 
 namespace NadinSoft.Infrastructure.Config;
 
 public class AutofacModule:Module
 {
+    private readonly string _connectionString;
+
+    public AutofacModule(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterAssemblyTypes(typeof(UserCommandHandler).Assembly)
@@ -19,8 +28,18 @@ public class AutofacModule:Module
             .As(type => type.GetInterfaces()
                 .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IQueryHandler<,>))))
             .InstancePerLifetimeScope();
+        
+        // Register repositories without connectionString parameter since they use DataBaseContext
+        builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
+            .Where(t => t.Name.EndsWith("Repository"))
+            .AsImplementedInterfaces()
+            .InstancePerLifetimeScope();
+            
+        builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+
         builder.RegisterType<AutofacCommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
         builder.RegisterType<AutofacQueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
+
 
     }
 }
