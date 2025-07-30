@@ -6,12 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Mapper\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\NadinSoft.Application.Contract\NadinSoft.Application.Contract.csproj" />
-    </ItemGroup>
-
 </Project>
