@@ -1,7 +1,7 @@
 ﻿using NadinSoft.Application.Contract.Commands.User;
 using NadinSoft.Application.Contract.Queries.User;
 using NadinSoft.Application.Contract.QueryResults.User;
-using NadinSoft.Domain.Models.User;
+using NadinSoft.Domain.Models.Users;
 
 namespace NadinSoft.Application.Mapper;
 

@@ -1,4 +1,6 @@
-﻿namespace NadinSoft.Domain.Models.User;
+﻿using NadinSoft.Domain.Models.Products;
+
+namespace NadinSoft.Domain.Models.Users;
 
 public class User:BaseEntity<long>
 {
@@ -6,4 +8,5 @@ public class User:BaseEntity<long>
     public string Password { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
+    public IEnumerable<Product> Products { get; set; }
 }

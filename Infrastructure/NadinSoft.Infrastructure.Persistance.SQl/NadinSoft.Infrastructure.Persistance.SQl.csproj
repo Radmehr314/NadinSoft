@@ -23,6 +23,7 @@
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\..\Application\NadinSoft.Application.Contract\NadinSoft.Application.Contract.csproj" />
       <ProjectReference Include="..\..\Domain\NadinSoft.Domain\NadinSoft.Domain.csproj" />
     </ItemGroup>
 

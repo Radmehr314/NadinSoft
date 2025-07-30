@@ -1,7 +1,8 @@
 ﻿using NadinSoft.Application.Contract.Commands.User;
+using NadinSoft.Application.Contract.Contracts;
 using NadinSoft.Application.Contract.Framework;
 using NadinSoft.Domain;
-using NadinSoft.Domain.Models.User;
+using NadinSoft.Domain.Models.Users;
 using NadinSoft.Application.Mapper;
 
 namespace NadinSoft.Application.CommandHandler;
@@ -10,6 +11,7 @@ public class UserCommandHandler:ICommandHandler<AddUserCommand>,ICommandHandler<
 {
 
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserInfoService _userInfoService;
 
     public UserCommandHandler(IUnitOfWork unitOfWork)
     {

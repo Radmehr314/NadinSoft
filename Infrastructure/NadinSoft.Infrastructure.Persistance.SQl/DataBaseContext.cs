@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NadinSoft.Domain.Models.User;
+using NadinSoft.Domain.Models.Products;
+using NadinSoft.Domain.Models.Users;
 
 namespace NadinSoft.Infrastructure.Persistance.SQl;
 
 public class DataBaseContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Product> Products { get; set; }
     public DataBaseContext(DbContextOptions options) : base(options) 
     {
 

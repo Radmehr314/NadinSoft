@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NadinSoft.Infrastructure.Persistance.SQl;
 
@@ -11,9 +12,11 @@ using NadinSoft.Infrastructure.Persistance.SQl;
 namespace NadinSoft.Infrastructure.Persistance.SQl.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250730074100_Product")]
+    partial class Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace NadinSoft.Infrastructure.Persistance.SQl.Migrations
 
                     b.Property<string>("ManufactureEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ManufacturePhone")
                         .IsRequired()
@@ -52,12 +55,6 @@ namespace NadinSoft.Infrastructure.Persistance.SQl.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ManufactureEmail")
-                        .IsUnique();
-
-                    b.HasIndex("ProducedDate")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 

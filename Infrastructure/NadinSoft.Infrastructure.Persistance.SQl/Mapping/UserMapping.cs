@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NadinSoft.Domain.Models.User;
+using NadinSoft.Domain.Models.Users;
 
 namespace NadinSoft.Infrastructure.Persistance.SQl.Mapping;
 

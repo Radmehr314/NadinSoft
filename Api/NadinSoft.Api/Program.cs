@@ -1,7 +1,10 @@
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NadinSoft.Api.Framework;
 using NadinSoft.Infrastructure.Config;
@@ -38,7 +41,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "NadinSoft Api", Version = "v1" });
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "NadinSoft API", Version = "v1" });
 
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -66,8 +69,28 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient();
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:7055/",
+            ValidAudience = "https://localhost:5232/",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("139199f8-ae6f-447e-9f1a-3cabc187e8ee")),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
 
 
 
