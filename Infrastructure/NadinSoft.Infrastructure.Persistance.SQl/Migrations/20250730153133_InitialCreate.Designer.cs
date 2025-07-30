@@ -12,8 +12,8 @@ using NadinSoft.Infrastructure.Persistance.SQl;
 namespace NadinSoft.Infrastructure.Persistance.SQl.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250730074355_AddUniqueConstraintsToProduct")]
-    partial class AddUniqueConstraintsToProduct
+    [Migration("20250730153133_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

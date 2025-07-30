@@ -104,7 +104,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        DatabaseInitializer.Initialize(app.Services);
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "یک خطا در ایجاد یا مایگریت دیتابیس رخ داد.");
+    }
+}
 app.UseExceptionHandler(errorApp =>
 {
     errorApp.Run(async context =>
