@@ -13,13 +13,13 @@ public class UserQueryController : BaseQueryController
     }
 
     [HttpGet("GetById")]
-    public async Task<ActionResult<CommandResult>> GetUser([FromQuery]GetUserByIdQuery query)
+    public async Task<ActionResult<GetUserByIdQueryResult>> GetUser([FromQuery]GetUserByIdQuery query)
     {
         return Ok(await Bus.Dispatch<GetUserByIdQuery,GetUserByIdQueryResult>(query));
     }
     
     [HttpGet("All")]
-    public async Task<ActionResult<CommandResult>> AllUser([FromQuery]GetAllUserQuery query)
+    public async Task<ActionResult<List<GetAllUserQueryResult>>> AllUser([FromQuery]GetAllUserQuery query)
     {
         return Ok(await Bus.Dispatch<GetAllUserQuery,List<GetAllUserQueryResult>>(query));
     }

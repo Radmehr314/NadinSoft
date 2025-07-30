@@ -17,4 +17,5 @@ public class UserRepository : IUserRepository
     public async Task<User> GetById(long id) => await _dataBaseContext.Users.FindAsync(id);
 
     public async Task<List<User>> All() => await _dataBaseContext.Users.ToListAsync();
+    public async Task Delete(long id) =>  _dataBaseContext.Remove(await GetById((id)));
 }

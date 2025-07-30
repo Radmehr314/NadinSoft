@@ -12,7 +12,9 @@ public static class UserMapper
         return new User()
         {
             Username = command.Username,
-            Password = command.Password
+            Password = command.Password,
+            Email = command.Email,
+            Phone = command.Phone
         };
     }
 
@@ -22,14 +24,16 @@ public static class UserMapper
         {
             Id = user.Id,
             Username = user.Username,
-            Password = user.Password
+            Password = user.Password,
+            Email = user.Email,
+            Phone = user.Phone
         };
     }
     
     public static List<GetAllUserQueryResult> GetAllMapper(this List<User> users)
     {
         return users
-            .Select(f => new GetAllUserQueryResult() { Id = f.Id, Username = f.Username, Password = f.Password })
+            .Select(f => new GetAllUserQueryResult() { Id = f.Id, Username = f.Username, Password = f.Password,Email = f.Email,Phone = f.Phone})
             .ToList();
     }
     

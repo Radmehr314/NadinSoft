@@ -23,4 +23,10 @@ public class UserCommandController : BaseCommandController
     {
         return Ok(await Bus.Dispatch(command));
     }
+
+    [HttpDelete("Delete")]
+    public async Task<ActionResult<CommandResult>> DeleteUser([FromQuery] DeleteUserCommand command)
+    {
+        return Ok(await Bus.Dispatch(command));
+    }
 }

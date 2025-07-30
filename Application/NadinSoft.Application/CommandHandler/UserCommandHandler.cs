@@ -6,7 +6,7 @@ using NadinSoft.Application.Mapper;
 
 namespace NadinSoft.Application.CommandHandler;
 
-public class UserCommandHandler:ICommandHandler<AddUserCommand>,ICommandHandler<UpdateUserCommand>
+public class UserCommandHandler:ICommandHandler<AddUserCommand>,ICommandHandler<UpdateUserCommand>,ICommandHandler<DeleteUserCommand>
 {
 
     private readonly IUnitOfWork _unitOfWork;
@@ -34,5 +34,12 @@ public class UserCommandHandler:ICommandHandler<AddUserCommand>,ICommandHandler<
             Id = command.Id
         };
 
+    }
+
+    public async Task<CommandResult> Handle(DeleteUserCommand command)
+    {
+        await _unitOfWork.UserRepository.Delete(command.Id);
+        await _unitOfWork.Save();
+        return new CommandResult();
     }
 }
